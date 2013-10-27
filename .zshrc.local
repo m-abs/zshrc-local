@@ -1,0 +1,16 @@
+PATH=$PATH:$HOME/AndroidSDK:$HOME/AndroidSDK/sdk/tools
+export PATH
+
+# For SDK version r_08 and higher, also add this for adb:
+PATH=$PATH:$HOME/AndroidSDK/sdk/platform-tools
+export PATH
+
+if [[ -x $( which ksshaskpass ) ]]; then
+	export SSH_ASKPASS=$( which ksshaskpass );
+fi
+
+export LESS="-R"
+
+alias playdelete="find . -type f -exec mplayer2 -fs '{}' \; -exec rm -vi '{}' \;"
+
+alias jshint="jshint --config ~/jshint_browser.conf"
