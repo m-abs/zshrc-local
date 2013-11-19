@@ -10,7 +10,16 @@ if [[ -x $( which ksshaskpass ) ]]; then
 fi
 
 export LESS="-R"
+export EDITOR=vim
+export VISUAL=vim
 
+alias cdgolease="cd $HOME/projects/golease"
+alias cdgoleaseweb="cd $HOME/projects/golease/LB-Web"
+unalias a
+unalias ai
 alias playdelete="find . -type f -exec mplayer2 -fs '{}' \; -exec rm -vi '{}' \;"
 
 alias jshint="jshint --config ~/jshint_browser.conf"
+
+# NYTprof doesn't capture sigexit by default, which is bad when working with Perl and catelyst
+export NYTPROF=sigexit=1
