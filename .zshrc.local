@@ -21,8 +21,6 @@ export LESS="-R"
 export EDITOR=vim
 export VISUAL=vim
 
-alias cdgolease="cd $HOME/projects/golease"
-alias cdgoleaseweb="cd $HOME/projects/golease/LB-Web"
 unalias a
 unalias ai
 alias playdelete="find . -type f -exec mplayer2 -fs '{}' \; -exec rm -vi '{}' \;"
@@ -89,10 +87,10 @@ export NVM_DIR="/home/mabs/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm use stable
 
-alias vim=nvim
-
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
+if [[ -x $(which nvim) ]]; then
+  alias vim=nvim
+  export NVIM_TUI_ENABLE_TRUE_COLOR=1
+fi
 
 # NYTprof doesn't capture sigexit by default, which is bad when working with Perl and catelyst
 export NYTPROF=sigexit=1
->>>>>>> 3efcaefda439d8f634c10c9e0ca8362b775ecb5e
