@@ -10,7 +10,8 @@ if [[ -d $ANDROID_HOME ]]; then
 fi
 
 if [[ -x $( which ksshaskpass ) ]]; then
-  export SSH_ASKPASS=$( which ksshaskpass );
+  export SSH_ASKPASS=$(which ksshaskpass);
+  ssh-add < /dev/null
 fi
 
 export LANGUAGE=en
@@ -20,6 +21,11 @@ export LC_ALL=en_DK.UTF-8
 export LESS="-R"
 export EDITOR=vim
 export VISUAL=vim
+
+for d in $( find ~/project -maxdepth 1 -type d ); do
+  n=$(basename $d);
+  alias cd$n="cd $d";
+done
 
 unalias a
 unalias ai
@@ -88,9 +94,12 @@ export NVM_DIR="$HOME/.nvm"
 nvm use stable
 
 if [[ -x $(which nvim) ]]; then
-  alias vim=nvim
-  export NVIM_TUI_ENABLE_TRUE_COLOR=1
+  alias vim="nvim"
 fi
 
 # NYTprof doesn't capture sigexit by default, which is bad when working with Perl and catelyst
 export NYTPROF=sigexit=1
+
+if [ -d "$HOME/.bin" ]; then
+  export PATH=$PATH:$HOME/.bin
+fi
