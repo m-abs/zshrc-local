@@ -103,3 +103,9 @@ export NYTPROF=sigexit=1
 if [ -d "$HOME/.bin" ]; then
   export PATH=$PATH:$HOME/.bin
 fi
+
+###-tns-completion-start-###
+if [ -f $HOME/.tnsrc ]; then
+    source $HOME/.tnsrc
+fi
+###-tns-completion-end-###
