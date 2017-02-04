@@ -2,14 +2,13 @@ export ANDROID_HOME=$HOME/tools/android/android-sdk-linux
 
 if [[ -d $ANDROID_HOME ]]; then
   PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools
-  export PATH
 
   # For SDK version r_08 and higher, also add this for adb:
   [[ -d $ANDROID_HOME/platform-tools ]] && PATH=$PATH:$ANDROID_HOME/platform-tools
   export PATH
 fi
 
-if [[ -x $( which ksshaskpass ) ]]; then
+if test ksshaskpass > /dev/null; then
   export SSH_ASKPASS=$(which ksshaskpass);
   ssh-add < /dev/null
 fi
@@ -22,18 +21,19 @@ export LESS="-R"
 export EDITOR=vim
 export VISUAL=vim
 
-for d in $( find ~/project -maxdepth 1 -type d ); do
-  n=$(basename $d);
-  alias cd$n="cd $d";
+for pdir in ~/project ~/projects; do
+  [[ ! -d $pdir ]] && continue;
+  for dir in $(find $pdir -maxdepth 1 -type d); do
+    n=$(basename $dir);
+    alias cd$n="cd ${dir}";
+  done
 done
 
-unalias a
-unalias ai
-alias playdelete="find . -type f -exec mplayer2 -fs '{}' \; -exec rm -vi '{}' \;"
+for unalias in a ai as afs afsl afu ass asu au; do
+  type alias $unalias > /dev/null && unalias $unalias > /dev/null 2>&1
+done
 
-# export NPM_PACKAGES=$HOME/.npm/packages
-# export PATH=$NPM_PACKAGES/bin:$PATH
-# export NODE_PATH=$NPM_PACKAGES/lib/node_modules:/usr/share/npm/node_modules
+alias playdelete="find . -type f -exec mplayer2 -fs '{}' \; -exec rm -vi '{}' \;"
 
 ###-begin-npm-completion-###
 #
@@ -99,10 +99,10 @@ fi
 if type nvim > /dev/null; then
   alias vim="nvim"
   alias vimdiff="nvim -d -O2"
-fi
 
-# NYTprof doesn't capture sigexit by default, which is bad when working with Perl and catelyst
-export NYTPROF=sigexit=1
+  export EDITOR=nvim
+  export VISUAL=nvim
+fi
 
 if [[ -d "$HOME/.bin" ]]; then
   export PATH=$PATH:$HOME/.bin
