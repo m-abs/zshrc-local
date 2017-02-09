@@ -95,6 +95,10 @@ nvm use stable
 
 if [[ -x $(which nvim) ]]; then
   alias vim="nvim"
+  alias vimdiff="nvim -d -O2"
+
+  export EDITOR=nvim
+  export VISUAL=nvim
 fi
 
 # NYTprof doesn't capture sigexit by default, which is bad when working with Perl and catelyst
@@ -103,3 +107,7 @@ export NYTPROF=sigexit=1
 if [ -d "$HOME/.bin" ]; then
   export PATH=$PATH:$HOME/.bin
 fi
+
+function gitroot {
+  cd $(git rev-parse --show-toplevel)
+}
