@@ -113,3 +113,5 @@ if [[ -f $HOME/.tnsrc ]]; then
     source $HOME/.tnsrc
 fi
 ###-tns-completion-end-###
+
+type google-chrome > /dev/null && alias gci="google-chrome --incognito"
