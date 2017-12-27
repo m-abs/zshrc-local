@@ -63,3 +63,5 @@ if [[ -f $HOME/.zshrc.nodejs ]]; then
     source $HOME/.zshrc.ng-cli
   fi
 fi
+
+type google-chrome > /dev/null && alias gci="google-chrome --incognito"
