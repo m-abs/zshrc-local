@@ -1,20 +1,25 @@
 if [[ -d /usr/local/Cellar/android-sdk ]]; then
-  foreach dir (/usr/local/Cellar/android-sdk/*); do
-    export ANDROID_HOME=$dir
+  foreach DIR (/usr/local/Cellar/android-sdk/*); do
+    export ANDROID_HOME=$DIR
+    break;
   done
-elif [[ -d "$HOME/tools/android-sdk" ]]; then
-  export ANDROID_HOME=$HOME/tools/android-sdk
+else
+  foreach DIR ($HOME/tools/android-sdk $HOME/tools/android/android-sdk-linux); do
+    if [[ -d $DIR ]]; then
+      export ANDROID_HOME=$DIR
+      break;
+    fi
+  done
 fi
 
 if [[ -d $ANDROID_HOME ]]; then
-  PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME;
 
-  # For SDK version r_08 and higher, also add this for adb:
-  if [[ -d $ANDROID_HOME/platform-tools ]]; then
-    PATH=$PATH:$ANDROID_HOME/platform-tools
-  fi
-
-  export PATH
+  foreach SUBDIR ({tools,platform-tools}{,/bin}); do
+    if [[ -d $ANDROID_HOME/$SUBDIR ]]; then
+      export PATH=$PATH:$ANDROID_HOME/$SUBDIR
+    fi
+  done
 fi
 
 if command -v ksshaskpass > /dev/null; then
