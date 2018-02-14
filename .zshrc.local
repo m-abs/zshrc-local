@@ -34,7 +34,7 @@ for pdir in ~/project ~/projects; do
   done
 done
 
-for unalias in a ai as afs afsl afu ass asu au; do
+for unalias in a ai as afs afsl afu ass asu au whois; do
   type alias $unalias > /dev/null && unalias $unalias > /dev/null 2>&1
 done
 
